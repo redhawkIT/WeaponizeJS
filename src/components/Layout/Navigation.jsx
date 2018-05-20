@@ -39,8 +39,11 @@ class Navigation extends React.Component {
           <Link className="nav-link" to="/">
             {' Home '}
           </Link>
+          <Link className="nav-link" to="/articles">
+            {' Articles '}
+          </Link>
           <Link className="nav-link" to="/exploit-one">
-            {' Reports '}
+            {' Exploits '}
           </Link>
           <Link className="nav-link" to="/about">
             {' About '}

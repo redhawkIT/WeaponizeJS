@@ -67,10 +67,12 @@ const EntryTitle = styled.h6`
 
 const ChapterListItem = styled.li`
   margin: 0;
+  padding-left: 8px;
 `
 
 const EntryListItem = styled.li`
   margin: 0;
+  padding-left: 16px;
   a:hover {
     border-bottom: 1px solid black;
   }
