@@ -1,7 +1,14 @@
 import React from 'react'
 import Helmet from 'react-helmet'
+import styled from 'styled-components'
+import MainHeader from '../components/Layout/Header'
 import PostListing from '../components/PostListing/PostListing'
 import config from '../../data/SiteConfig'
+
+
+const BodyContainer = styled.div`
+  padding: ${props => props.theme.sitePadding};
+`
 
 export default class CategoryTemplate extends React.Component {
   render() {
@@ -12,7 +19,17 @@ export default class CategoryTemplate extends React.Component {
         <Helmet
           title={`Posts in category "${category}" | ${config.siteTitle}`}
         />
-        <PostListing postEdges={postEdges} />
+        <main>
+          <MainHeader
+            siteTitle={config.siteTitle}
+            siteDescription={config.siteDescription}
+            location={this.props.location}
+            logo={config.siteLogo}
+          />
+          <BodyContainer>
+            <PostListing postEdges={postEdges} />
+          </BodyContainer>
+        </main>
       </div>
     )
   }

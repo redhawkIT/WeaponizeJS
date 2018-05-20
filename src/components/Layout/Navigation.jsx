@@ -13,7 +13,8 @@ const NavContainer = styled.div`
     font-size: 1.6rem;
     margin-right: 10px;
     font-weight: 200;
-    color: black;
+    color: white;
+    text-decoration: none;
   }
 
   @media screen and (max-width: 600px) {

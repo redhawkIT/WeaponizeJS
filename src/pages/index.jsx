@@ -53,8 +53,9 @@ export default Index
 
 const IndexHeadContainer = styled.div`
   background: ${props => props.theme.brand};
-  padding: ${props => props.theme.sitePadding};
+  padding: 25px;
   text-align: center;
+  color: white;
 `
 
 const Hero = styled.div`

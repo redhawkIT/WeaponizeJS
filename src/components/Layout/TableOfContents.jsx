@@ -104,9 +104,9 @@ const ChapterTitle = styled.h5`
       case 1:
         return 'black'
       case 2:
-        return theme.accent
-      default:
         return theme.brand
+      default:
+        return theme.accent
     }
   }};
 `

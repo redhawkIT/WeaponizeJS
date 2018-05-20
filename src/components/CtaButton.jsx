@@ -23,6 +23,8 @@ const ButtonContainer = styled.div`
   color: ${props => props.theme.brand};
   display: inline-block;
   transition: all 0.3s ease;
+  width: 100%;
+  text-align: center;
 
   &:hover {
     color: white;
