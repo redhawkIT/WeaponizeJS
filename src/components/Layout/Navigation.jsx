@@ -43,7 +43,7 @@ class Navigation extends React.Component {
           <Link className="nav-link" to="/articles">
             {' Articles '}
           </Link>
-          <Link className="nav-link" to="/exploit-one">
+          <Link className="nav-link" to="/exploits">
             {' Exploits '}
           </Link>
           <Link className="nav-link" to="/about">

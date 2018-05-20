@@ -10,8 +10,9 @@ exports.onCreateNode = ({ node, boundActionCreators, getNode }) => {
   if (node.internal.type === 'MarkdownRemark') {
     const fileNode = getNode(node.parent)
     const parsedFilePath = path.parse(fileNode.relativePath)
+    // Parse articles in content/<category:exploits>/<exploit:type>/
     category = parsedFilePath.dir.split('/')[0]
-    if (category === 'exploit') {
+    if (category === 'exploits') {
       exploit = parsedFilePath.dir.split('/')[1].replace('-', '')
     }
     if (
@@ -45,6 +46,9 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
     const postPage = path.resolve('src/templates/post.jsx')
     const exploitPage = path.resolve('src/templates/exploit.jsx')
     const categoryPage = path.resolve('src/templates/category.jsx')
+    const csrfPage = path.resolve('src/templates/csrf.jsx')
+    const clickjackPage = path.resolve('src/templates/clickjack.jsx')
+
     resolve(
       graphql(
         `
@@ -52,12 +56,6 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
             allMarkdownRemark {
               edges {
                 node {
-                  frontmatter {
-                    title
-                    type
-                    category
-                    tags
-                  }
                   fields {
                     slug
                     category
@@ -79,26 +77,45 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
         result.data.allMarkdownRemark.edges.forEach(edge => {
           const { slug, category, exploit } = edge.node.fields
           categories.add(edge.node.fields.category)
+
           console.log(edge.node.fields)
 
-          if (category === 'exploits') {
-            // TODO: Advanced logic for weaponizing CSRF and
-            createPage({
-              path: edge.node.fields.slug,
-              component: exploitPage,
-              context: {
-                slug: edge.node.fields.slug
-              }
-            })
-          } else {
-            createPage({
-              path: edge.node.fields.slug,
-              component: postPage,
-              context: {
-                slug: edge.node.fields.slug
-              }
-            })
+          // CREATE POST OR EXPLOIT REPORT
+          switch (category) {
+            case 'exploits':
+              createPage({
+                path: slug,
+                component: exploitPage,
+                context: { slug }
+              })
+              break
+            default:
+              createPage({
+                path: slug,
+                component: postPage,
+                context: { slug }
+              })
           }
+
+          //  WEAPONIZE EXPLOITS
+          switch (exploit) {
+            case 'csrf':
+              createPage({
+                path: `/csrf${slug}`,
+                component: csrfPage,
+                context: { slug }
+              })
+              break
+            case 'clickjacking':
+              createPage({
+                path: `/clickjacking${slug}`,
+                component: clickjackPage,
+                context: { slug }
+              })
+              break
+            default:
+          }
+
         })
 
         const categoryList = Array.from(categories)
@@ -106,9 +123,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           createPage({
             path: `/${_.kebabCase(category)}/`,
             component: categoryPage,
-            context: {
-              category
-            }
+            context: { category }
           })
         })
       })
