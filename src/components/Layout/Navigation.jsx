@@ -37,16 +37,13 @@ class Navigation extends React.Component {
       <NavContainer>
         <section>
           <Link className="nav-link" to="/">
-            {' '}
-            HOME{' '}
+            {' Home '}
           </Link>
           <Link className="nav-link" to="/exploit-one">
-            {' '}
-            DOCS{' '}
+            {' Reports '}
           </Link>
           <Link className="nav-link" to="/about">
-            {' '}
-            ABOUT{' '}
+            {' About '}
           </Link>
         </section>
         <span>

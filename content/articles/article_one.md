@@ -1,9 +1,9 @@
 ---
-title: "Post One"
+title: "Article One"
 cover: "https://unsplash.it/400/300/?random?BoldMage"
 date: "01/01/2017"
 category: "tech"
-type: "post"
+type: "article"
 exploit: 2
 chapter: 2
 tags:
@@ -32,4 +32,4 @@ Jowl dolor duis, cupidatat pork tempor nostrud incididunt short loin laborum. Du
 Spare ribs aute fugiat, pariatur andouille labore nulla exercitation. Aliqua picanha sirloin consequat drumstick sint exercitation pork nisi et. Dolore swine fugiat pork salami proident. Bacon excepteur filet mignon labore pariatur in in nulla magna fugiat prosciutto. Laboris sint ground round, pancetta ipsum in pariatur voluptate fatback andouille velit shoulder flank quis sausage.
 
 Hamburger ham shank est, officia qui capicola proident. Ribeye dolore prosciutto sirloin alcatra. Rump short ribs quis ex fugiat proident incididunt irure t-bone meatball veniam sirloin meatloaf. Tongue anim sint pancetta bresaola sirloin.
-Does your lorem ipsum text long for something a little meatier? Give our generator a try… 
+Does your lorem ipsum text long for something a little meatier? Give our generator a try…

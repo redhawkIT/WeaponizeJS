@@ -5,15 +5,15 @@ const webpackLodashPlugin = require('lodash-webpack-plugin')
 exports.onCreateNode = ({ node, boundActionCreators, getNode }) => {
   const { createNodeField } = boundActionCreators
   let slug
-  // let category = 'post'
-  // let exploit = ''
+  let category = 'post'
+  let exploit = ''
   if (node.internal.type === 'MarkdownRemark') {
     const fileNode = getNode(node.parent)
     const parsedFilePath = path.parse(fileNode.relativePath)
-    // category = parsedFilePath.dir.split('/')[0]
-    // if (category === 'exploit') {
-    //   exploit = parsedFilePath.dir.split('/')[1].replace('-', '')
-    // }
+    category = parsedFilePath.dir.split('/')[0]
+    if (category === 'exploit') {
+      exploit = parsedFilePath.dir.split('/')[1].replace('-', '')
+    }
     if (
       Object.prototype.hasOwnProperty.call(node, 'frontmatter') &&
       Object.prototype.hasOwnProperty.call(node.frontmatter, 'slug')
@@ -33,8 +33,8 @@ exports.onCreateNode = ({ node, boundActionCreators, getNode }) => {
       slug = `/${parsedFilePath.dir}/`
     }
     createNodeField({ node, name: 'slug', value: slug })
-    // createNodeField({ node, name: 'category', value: category })
-    // createNodeField({ node, name: 'exploit', value: exploit })
+    createNodeField({ node, name: 'category', value: category })
+    createNodeField({ node, name: 'exploit', value: exploit })
   }
 }
 
@@ -60,6 +60,8 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
                   }
                   fields {
                     slug
+                    category
+                    exploit
                   }
                 }
               }
@@ -71,29 +73,16 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           reject(result.errors)
         }
 
-        const tagSet = new Set()
-        const categorySet = new Set()
+        //  Track all the different unique categories we find
+        const categories = new Set()
 
         result.data.allMarkdownRemark.edges.forEach(edge => {
-          if (edge.node.frontmatter.tags) {
-            edge.node.frontmatter.tags.forEach(tag => {
-              tagSet.add(tag)
-            })
-          }
+          const { slug, category, exploit } = edge.node.fields
+          categories.add(edge.node.fields.category)
+          console.log(edge.node.fields)
 
-          if (edge.node.frontmatter.category) {
-            categorySet.add(edge.node.frontmatter.category)
-          }
-
-          if (edge.node.frontmatter.type === 'post') {
-            createPage({
-              path: edge.node.fields.slug,
-              component: postPage,
-              context: {
-                slug: edge.node.fields.slug
-              }
-            })
-          } else {
+          if (category === 'exploits') {
+            // TODO: Advanced logic for weaponizing CSRF and
             createPage({
               path: edge.node.fields.slug,
               component: exploitPage,
@@ -101,13 +90,21 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
                 slug: edge.node.fields.slug
               }
             })
+          } else {
+            createPage({
+              path: edge.node.fields.slug,
+              component: postPage,
+              context: {
+                slug: edge.node.fields.slug
+              }
+            })
           }
         })
 
-        const categoryList = Array.from(categorySet)
+        const categoryList = Array.from(categories)
         categoryList.forEach(category => {
           createPage({
-            path: `/categories/${_.kebabCase(category)}/`,
+            path: `/${_.kebabCase(category)}/`,
             component: categoryPage,
             context: {
               category
