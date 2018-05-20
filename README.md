@@ -12,7 +12,7 @@ Developed for creating Documentation or Tutorial websites.
 
 ### [Demo](https://gatsby-docs-starter.netlify.com/)
 
-This template provides everything but the content. You could just write all your lessons in markdown files, configure a few lines of code, and have a completely built documentation website.
+This template provides everything but the content. You could just write all your exploits in markdown files, configure a few lines of code, and have a completely built documentation website.
 
 ## Changelog
 
@@ -20,7 +20,7 @@ Updated 3/17/18
 
 * Updated Table of Contents system: 
    * You now define your table of contents in the 'table_of_contents.json' file under the 'content' folder.
-   * The GraphQl query in your 'lesson' template should match your table_of_contents.
+   * The GraphQl query in your 'exploit' template should match your table_of_contents.
    * The `TableOfContents` component does the rest.
 
 This requires more upfront work, but I've found it to be infintely better when your page count gets high. It's easier to move things around and have the ToC **just work**.

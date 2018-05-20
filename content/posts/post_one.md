@@ -4,7 +4,7 @@ cover: "https://unsplash.it/400/300/?random?BoldMage"
 date: "01/01/2017"
 category: "tech"
 type: "post"
-lesson: 2
+exploit: 2
 chapter: 2
 tags:
     - programming
